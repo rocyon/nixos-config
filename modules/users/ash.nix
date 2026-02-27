@@ -3,6 +3,14 @@
   den,
   ...
 }: {
+  flake-file.inputs = {
+    # used for neovim
+    wrappers = {
+      url = "github:BirdeeHub/nix-wrapper-modules";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
+
   den.aspects.ash = {
     includes =
       (builtins.attrValues den.aspects.ash._)

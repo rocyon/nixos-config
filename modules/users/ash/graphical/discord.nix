@@ -10,7 +10,7 @@
     };
   };
 
-  den.aspects.ash._.discord = {
+  den.aspects.ash._.graphical._.discord = {
     homeManager = {
       osConfig,
       config,

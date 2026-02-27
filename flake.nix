@@ -22,9 +22,14 @@
       url = "github:nix-community/nix-index-database";
     };
     nix-secrets.url = "path:/etc/nixos/secrets";
+    nixcord.url = "github:FlameFlag/nixcord";
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
     nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz";
     nixpkgs-lib.follows = "nixpkgs";
+    nur = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/NUR";
+    };
     plugins-lze = {
       flake = false;
       url = "github:BirdeeHub/lze";
@@ -36,6 +41,10 @@
     sops-nix = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:mic92/sops-nix";
+    };
+    stylix = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/stylix";
     };
     wrappers = {
       inputs.nixpkgs.follows = "nixpkgs";

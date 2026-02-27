@@ -1,5 +1,6 @@
 ref
 secrets/*
+assets
 
 .git
 .github

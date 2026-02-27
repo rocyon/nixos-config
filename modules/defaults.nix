@@ -1,12 +1,19 @@
-{den, ...}: {
+{
+  den,
+  inputs,
+  ...
+}: {
   _module.args.__findFile = den.lib.__findFile;
 
-  den.default.nixos = {pkgs, lib,...}: {
+  den.default.nixos = {
+    pkgs,
+    lib,
+    ...
+  }: {
     system.stateVersion = "25.05";
 
     home-manager = {
       useGlobalPkgs = true;
-      # useUserPkgs = true;
       backupFileExtension = "hm-bk";
     };
 
@@ -61,6 +68,10 @@
       enable = true;
       memoryPercent = 90;
     };
+
+    imports = [
+      inputs.nur.modules.nixos.default
+    ];
   };
 
   den.default.darwin = {};
@@ -80,5 +91,9 @@
 
     inputs'
     self'
+
+    (den.lib.take.exactly ({host}: {
+      nixos.networking.hostName = host.name;
+    }))
   ];
 }

@@ -4,7 +4,7 @@
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  den.aspects.apps._.comma = with inputs.nix-index-database; {
+  den.aspects.app._.comma = with inputs.nix-index-database; {
     nixos = {
       imports = [nixosModules.default];
       programs.nix-index-database.comma.enable = true;

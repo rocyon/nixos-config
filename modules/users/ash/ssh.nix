@@ -12,7 +12,6 @@
           "*".compression = true;
 
           "codeberg.org" = {
-            user = "rocyon";
             identityFile = config.sops.secrets."private-ssh".path;
           };
         };

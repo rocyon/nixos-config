@@ -56,9 +56,11 @@
         "https://cache.nixos.org" # Official global cache
         "https://nix-community.cachix.org" # Community packages
       ];
-      #extra-substituters = [
-      #  "https://nix-community.cachix.org" # Nix community Cachix server
-      #];
+
+      extra-substituters = [
+        "https://nix-community.cachix.org" # Nix community Cachix server
+      ];
+
       extra-trusted-public-keys = [
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       ];
@@ -76,24 +78,42 @@
 
   den.default.darwin = {};
 
-  den.default.homeManager = {
+  den.default.homeManager = {lib, ...}: {
     programs.home-manager.enable = true;
 
     home = {
-      stateVersion = "25.05";
+      stateVersion = lib.mkDefault "25.05";
       preferXdgDirectories = true;
     };
   };
 
-  den.default.includes = with den._; [
-    define-user
-    primary-user
+  den.default.includes = with den; [
+    _.define-user
+    _.primary-user # causes all users to be wheel
+    _.inputs'
+    _.self'
 
-    inputs'
-    self'
-
-    (den.lib.take.exactly ({host}: {
-      nixos.networking.hostName = host.name;
+    (lib.take.exactly ({host}: {
+      nixos = {config, ...}: {
+        networking.hostName = host.name;
+      };
     }))
+
+    # defaults that disable if nixos-wsl is enabled
+    {
+      nixos = {
+        lib,
+        modulesPath,
+        pkgs,
+        ...
+      }:
+        lib.optionalAttrs (true) {
+          networking.networkmanager.enable = true;
+          imports = [(modulesPath + "/installer/scan/not-detected.nix")];
+
+          hardware.firmware = [pkgs.linux-firmware];
+          boot.kernelPackages = lib.mkDefault pkgs.linuxKernel.packages.linux_zen;
+        };
+    }
   ];
 }

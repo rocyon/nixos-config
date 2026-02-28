@@ -6,6 +6,18 @@
 
   inputs = {
     den.url = "github:vic/den";
+    dms = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:AvengeMedia/DankMaterialShell/stable";
+    };
+    dms-plugin-registry = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:AvengeMedia/dms-plugin-registry";
+    };
+    firefox-addons = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+    };
     flake-aspects.url = "github:vic/flake-aspects";
     flake-file.url = "github:vic/flake-file";
     flake-parts = {
@@ -17,6 +29,10 @@
       url = "github:nix-community/home-manager";
     };
     import-tree.url = "github:vic/import-tree";
+    niri = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:sodiboo/niri-flake";
+    };
     nix-index-database = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-community/nix-index-database";
@@ -30,6 +46,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-community/NUR";
     };
+    nvf.url = "github:notashelf/nvf";
     plugins-lze = {
       flake = false;
       url = "github:BirdeeHub/lze";
@@ -49,6 +66,13 @@
     wrappers = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:BirdeeHub/nix-wrapper-modules";
+    };
+    zen-browser = {
+      inputs = {
+        home-manager.follows = "home-manager";
+        nixpkgs.follows = "nixpkgs";
+      };
+      url = "github:0xc000022070/zen-browser-flake";
     };
   };
 

@@ -53,17 +53,5 @@
         };
       };
     };
-
-    includes =
-      [
-        #<ash/stylix>
-      ]
-      ++ (map den.lib.take.atLeast [
-        ({vesktop, ...}: {
-        })
-
-        ({equibop}: {
-        })
-      ]);
   };
 }

@@ -1,105 +1,60 @@
 {__findFile, ...}: {
-  den.hosts.x86_64-linux.xenia.users = {
-    ash = {};
-  };
+  den.aspects.xenia.includes = [
+    <sops>
 
-  den.aspects.xenia = {
-    nixos = {
-      config,
-      lib,
-      modulesPath,
-      pkgs,
-      ...
-    }: let
-      mkBtrfs = {
-        defaultOptions ? [],
-        device,
-        overrideDefaultOptionsBySubvol ? [],
-        subvols,
-      }:
-        lib.mapAttrs' (mountPoint: subvol:
-          lib.nameValuePair mountPoint {
-            inherit device;
-            fsType = "btrfs";
-            options = (
-              if (subvol == null)
-              then defaultOptions
-              else
-                (overrideDefaultOptionsBySubvol.${subvol} or defaultOptions)
-                ++ ["subvol=${subvol}"]
-            );
-          })
-        subvols;
-    in {
-      fileSystems = let
-        primaryDrive = mkBtrfs {
-          device = "/dev/disk/by-uuid/5bf2e86e-cab5-4af1-8d3d-b3b4b1d12af0";
-          defaultOptions = ["compress=zstd:1"];
-          subvols = {
-            "/" = "@";
-            "/home" = "@home";
-            "/nix" = "@nix";
-            "/var/top" = null;
-          };
+    <hardware/audio>
+    <hardware/systemd-boot>
+    <hardware/bluetooth>
+    <hardware/framework16>
 
-          overrideDefaultOptionsBySubvol = {
-            "@nix" = ["compress=zstd:3" "noatime"];
-          };
-        };
-      in
-        primaryDrive
-        // {
-          "/boot" = {
-            device = "/dev/disk/by-uuid/0ED5-65AF";
-            fsType = "vfat";
-            options = [
-              "fmask=0077"
-              "dmask=0077"
-            ];
-          };
-        };
+    #<desktop/niri>
+    <desktop/sddm>
 
-      hardware = {
-        firmware = [pkgs.linux-firmware];
-        cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-        bluetooth = {
-          enable = true;
-          powerOnBoot = true;
-        };
-      };
+    <app/steam>
+    <app/comma>
+  ];
 
-      networking.networkmanager.enable = true;
-
-      boot = {
-        kernelPackages = pkgs.linuxKernel.packages.linux_6_18;
-
-        initrd.availableKernelModules = [
-          "nvme"
-          "xhci_pci"
-          "ahci"
-          "usbhid"
-          "sd_mod"
+  den.aspects.xenia.nixos = {
+    config,
+    lib,
+    ...
+  }: let
+    mkBtrfs = {
+      device,
+      defaultOptions ? [],
+      optionsBySubvol ? [],
+    }:
+      lib.mapAttrs (_: subvol: {
+        inherit device;
+        fsType = "btrfs";
+        options = lib.concatLists [
+          (optionsBySubvol.${subvol} or defaultOptions)
+          (lib.optionals (null != subvol) ["subvol=${subvol}"])
         ];
+      });
+  in {
+    fileSystems =
+      {
+        "/boot" = {
+          device = "/dev/disk/by-uuid/0ED5-65AF";
+          fsType = "vfat";
+          options = [
+            "fmask=0077"
+            "dmask=0077"
+          ];
+        };
+      }
+      // (mkBtrfs {
+          device = "/dev/disk/by-uuid/5bf2e86e-cab5-4af1-8d3d-b3b4b1d12af0";
+          defaultOptions = ["compress" "noatime"];
+          optionsBySubvol."@home" = ["compress"];
+        } {
+          "/" = "@";
+          "/home" = "@home";
+          "/nix" = "@nix";
+        });
 
-        #initrd.kernelModules = [];
-        kernelModules = ["kvm-amd"];
-        #extraModulePackages = [];
-      };
-
-      imports = [(modulesPath + "/installer/scan/not-detected.nix")];
-    };
-
-    includes = [
-      <sops>
-
-      <hardware/audio>
-      <hardware/systemd-boot>
-
-      #<desktop/niri>
-      <desktop/sddm>
-
-      <app/steam>
-      <app/comma>
-    ];
+    programs.dconf.enable = true;
+    system.stateVersion = "25.05";
   };
 }

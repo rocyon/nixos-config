@@ -15,9 +15,9 @@
       programs.nix-index-database.comma.enable = true;
     };
 
-    # homeManager = {
-    #   imports = [homeManagerModules.default];
-    #   programs.nix-index-database.comma.enable = true;
-    # };
+    homeManager = {
+      imports = [homeModules.default];
+      programs.nix-index-database.comma.enable = true;
+    };
   };
 }

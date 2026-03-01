@@ -1,10 +1,21 @@
-{
+# The overarching config settings for all hosts
+# Contains 'host-spec' settings that have symptoms
+let
+  defaultUsers = {
+    ash = {
+      colorscheme = "catppuccin-mocha";
+    };
+  };
+in {
   den.hosts = {
     x86_64-linux.xenia = {
       isGraphical = true;
 
       users = {
-        ash = {};
+        inherit
+          (defaultUsers)
+          ash
+          ;
       };
     };
 
@@ -12,7 +23,10 @@
       isGraphical = false;
 
       users = {
-        ash = {};
+        inherit
+          (defaultUsers)
+          ash
+          ;
       };
     };
   };

@@ -1,12 +1,14 @@
 {
-  den.aspects.hardware._.bluetooth.nixos = {
-    services.blueman.enable = true;
+  den.aspects.hardware._.bluetooth = {
+    nixos = {pkgs, ...}: {
+      services.blueman.enable = true;
 
-    hardware.bluetooth = {
-      enable = true;
-      powerOnBoot = true;
+      hardware.bluetooth = {
+        enable = true;
+        powerOnBoot = true;
+      };
 
-      #hsphfpd.enable = true;
+      environment.systemPackages = with pkgs; [bluetui];
     };
   };
 }

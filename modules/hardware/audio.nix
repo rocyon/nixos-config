@@ -8,7 +8,14 @@
 
     includes = [
       (den.lib.take.exactly ({host}: {
-        # something something gui apps
+        nixos = {
+          pkgs,
+          lib,
+          ...
+        }: {
+          environment.systemPackages = with pkgs;
+            lib.optionals host.isGraphical [pavucontrol];
+        };
       }))
     ];
   };

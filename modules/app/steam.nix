@@ -1,15 +1,31 @@
-{__findFile, ...}: {
-  den.aspects.app._.steam = {
-    nixos = {
+{
+  __findFile,
+  den,
+  ...
+}: {
+  den.aspects.app._.steam = den.lib.parametric {
+    nixos = {pkgs, ...}: {
       programs.steam = {
         enable = true;
         remotePlay.openFirewall = true;
         dedicatedServer.openFirewall = false;
         localNetworkGameTransfers.openFirewall = true;
+
+        extraCompatPackages = with pkgs; [proton-ge-bin];
       };
     };
 
-    provides.gamescope = let
+    includes = [
+      ({gamescope}: {
+        includes =
+          if gamescope
+          then [<app/steam/gamescope>]
+          else [];
+      })
+    ];
+
+    #=- sub-module, gamescope
+    _.gamescope = let
       gamescopeArgs = [
         #"--mangoapp"
         "-e"
@@ -24,7 +40,10 @@
         "-steamos3"
       ];
     in {
-      includes = [<app/steam>];
+      includes = [
+        <app/steam>
+        <tools/appimage>
+      ];
 
       nixos = {
         pkgs,
@@ -126,17 +145,13 @@
           "L+ /usr/bin/steamos-polkit-helpers/steamos-update - - - - ${pollkitSteamos-update}"
         ];
 
-        # FIXME
-        #security.pam.services.kde.kwallet.forceRun = true;
+        # for running gamescope as DE
+        security.pam.services.kde.kwallet.forceRun = true;
 
-        programs.steam = {
-          gamescopeSession = {
-            enable = true;
-            args = gamescopeArgs;
-            steamArgs = steamArgs;
-          };
-
-          extraCompatPackages = with pkgs; [proton-ge-bin];
+        programs.steam.gamescopeSession = {
+          enable = true;
+          args = gamescopeArgs;
+          steamArgs = steamArgs;
         };
 
         programs.gamescope = {
@@ -145,10 +160,6 @@
         };
 
         hardware.xone.enable = false; # support for the xbox controller USB dongle
-
-        # some games distribute as appimages
-        programs.appimage.enable = true;
-        programs.appimage.binfmt = true;
       }; #nixos
     }; #gamescope
   };

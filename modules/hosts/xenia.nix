@@ -12,11 +12,13 @@
     <desktop/sddm>
 
     <app/steam>
-    <app/comma>
+    <tools/comma>
+    <tools/twingate>
   ];
 
   den.aspects.xenia.nixos = {
     config,
+    pkgs,
     lib,
     ...
   }: let
@@ -57,6 +59,11 @@
 
     programs.dconf.enable = true;
     system.stateVersion = "25.05";
+
+    services.ddccontrol.enable = true;
+    environment.systemPackages = [pkgs.ddccontrol-db];
+
+    boot.extraModulePackages = with config.boot.kernelPackages; [ ddcci-driver ];
 
     assertions = [
       {

@@ -21,37 +21,51 @@
       stylix.targets.nixcord.enable = true;
 
       programs.nixcord = {
-        discord = {
-          #branch = "canary";
+        enable = true;
+        discord.vencord.enable = false;
+        discord.equicord.enable = true;
 
-          #=- clients
-          #vencord.eanble = false;
-          equicord.enable = true;
-
-            #openASAR.enable = true;
-        };
-
-        equibop.enable = true;
-
-        dorion.enable = true;
         dorion = {
+          enable = true;
           clientMods = ["Shelter" "Equicord"];
         };
 
-        config = {
-          autoUpdate = false;
-          autoUpdateNotification = false;
-          disableMinSize = true;
-          frameless = config.programs.niri.enable || osConfig.programs.niri.enable;
-          #notifyAboutUpdate = false;
-
-          plugins = {
-            AmITyping.enable = true;
-            ClearURLs.enable = true;
-            CopyUserURLs.enable = true;
-          };
-        };
+        equibop.enable = true;
+        vesktop.enable = true;
       };
+
+      # programs.nixcord = {
+      #   discord = {
+      #     #branch = "canary";
+      #
+      #     #=- clients
+      #     #vencord.eanble = false;
+      #     equicord.enable = true;
+      #
+      #       #openASAR.enable = true;
+      #   };
+      #
+      #   equibop.enable = true;
+      #
+      #   dorion.enable = true;
+      #   dorion = {
+      #     clientMods = ["Shelter" "Equicord"];
+      #   };
+      #
+      #   config = {
+      #     autoUpdate = false;
+      #     autoUpdateNotification = false;
+      #     disableMinSize = true;
+      #     frameless = config.programs.niri.enable || osConfig.programs.niri.enable;
+      #     #notifyAboutUpdate = false;
+      #
+      #     plugins = {
+      #       AmITyping.enable = true;
+      #       ClearURLs.enable = true;
+      #       CopyUserURLs.enable = true;
+      #     };
+      #   };
+      # };
     };
   };
 }

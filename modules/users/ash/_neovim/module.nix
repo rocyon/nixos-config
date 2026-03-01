@@ -143,9 +143,9 @@
       nvim-lspconfig
       nvim-surround
       vim-startuptime
-      blink-cmp
+      #blink-cmp
       blink-compat
-      cmp-cmdline
+      #cmp-cmdline
       colorful-menu-nvim
       lualine-nvim
       gitsigns-nvim

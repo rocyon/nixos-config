@@ -698,7 +698,8 @@ nixInfo.lze.load {
   },
   {
     "blink.cmp",
-    auto_enable = true,
+    auto_enable = false,
+    enabled = false,
     event = "DeferredUIEnter",
     after = function (_)
       require("blink.cmp").setup({

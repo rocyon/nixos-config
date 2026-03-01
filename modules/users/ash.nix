@@ -1,6 +1,7 @@
 {
   __findFile,
   den,
+  inputs,
   ...
 }: {
   flake-file.inputs = {
@@ -15,27 +16,41 @@
     den.lib.parametric
     <| {
       includes = lib.flatten [
+        <tools/comma>
+        <app/helium>
+
+        # automatically include all aspects in ash._.*
         (builtins.attrValues den.aspects.ash._)
 
-        [
-          <app/comma>
-          <app/helium>
-        ]
+        # Change if ash._.graphical._.* is imported based on host-specification
+        ({
+          host,
+          user,
+        }: let
+          isGraphical = host.isGraphical or false;
+        in {
+          includes = lib.optionals host.isGraphical (
+            (lib.attrValues den.aspects.ash._.graphical._)
+          );
 
-        ({host, ...}: {
-          includes =
-            lib.optionals host.isGraphical
-            (lib.attrValues den.aspects.ash._.graphical._);
+          nixos = {config, ...}: {
+            assertions = [
+              {
+                assertion = isGraphical -> config.programs.niri.enable;
+                message = "user ash requires programs.niri";
+              }
+            ];
+          };
         })
       ];
 
-      nixos = {config, ...}: {
-        assertions = [
-          {
-            assertion = config.programs.niri.enable;
-            message = "user ash requires programs.niri";
-          }
-        ];
+      homeManager = {pkgs, ...}: {
+        imports = [inputs.stylix.homeModules.stylix];
+        stylix = {
+          enable = true;
+          opacity.terminal = 0.75;
+          base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
+        };
       };
     };
 }

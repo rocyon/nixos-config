@@ -1,5 +1,6 @@
 {__findFile, ...}: {
   den.aspects.xenia.includes = [
+    (<facter> {report = "framework-16";})
     <sops>
 
     <hardware/audio>
@@ -56,5 +57,12 @@
 
     programs.dconf.enable = true;
     system.stateVersion = "25.05";
+
+    assertions = [
+      {
+        assertion = !(config ? disko);
+        message = "Xenia disallows disko";
+      }
+    ];
   };
 }

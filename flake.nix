@@ -14,6 +14,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:AvengeMedia/dms-plugin-registry";
     };
+    facter.url = "github:nix-community/nixos-facter-modules";
     firefox-addons = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";

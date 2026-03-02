@@ -1,6 +1,6 @@
 {__findFile, ...}: {
   den.aspects.xenia.includes = [
-    (<facter> {report = "framework-16";})
+    (<facter> {report = "framework16";})
     <sops>
 
     <hardware/audio>

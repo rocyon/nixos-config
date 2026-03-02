@@ -12,11 +12,6 @@
   }: {
     system.stateVersion = "25.05";
 
-    home-manager = {
-      useGlobalPkgs = true;
-      backupFileExtension = "hm-bk";
-    };
-
     nixpkgs.config = {
       allowUnfree = true;
     };

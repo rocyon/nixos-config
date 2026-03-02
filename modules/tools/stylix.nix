@@ -3,12 +3,12 @@
   inputs,
   ...
 }: {
-  flake-file.inputs.stylix = den.lib.parametric {
+  flake-file.inputs.stylix = {
     url = "github:nix-community/stylix";
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  den.aspects.tools._.stylix = {
+  den.aspects.tools._.stylix = {base16Scheme}: {
     homeManager = {lib, ...}: {
       imports = [inputs.stylix.homeModules.stylix];
       stylix.enable = lib.mkDefault true;

@@ -1,5 +1,11 @@
 {
   den.aspects.tools._.tailscale = {
-    nixos = {};
+    nixos = {
+      programs.tailscale = {
+        enable = true;
+        
+        useRoutingFeatures = "both";
+      };
+    };
   };
 }

@@ -1,12 +1,25 @@
-{__findFile, ...}: {
+{
+  __findFile,
+  inputs,
+  ...
+}: {
   den.aspects.ash._.ssh = {
-    includes = [<sops>];
+    includes = [(<sops> {})];
 
-    homeManager = {config, pkgs, ...}: {
+    homeManager = {
+      config,
+      pkgs,
+      ...
+    }: {
       home.packages = [pkgs.fastfetch];
+
+      sops.secrets."private-ssh" = {};
+
       programs.ssh = {
         enable = true;
         enableDefaultConfig = false;
+
+        addKeysToAgent = "confirm";
 
         matchBlocks = {
           "*".compression = true;

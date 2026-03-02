@@ -1,33 +1,47 @@
 # The overarching config settings for all hosts
 # Contains 'host-spec' settings that have symptoms
-let
-  defaultUsers = {
-    ash = {
-      colorscheme = "catppuccin-mocha";
-    };
+{inputs,lib, ...}: {
+  den.base.host = {
+    isGraphical = lib.mkDefault false;
+
+    home-manager.enable = true;
   };
-in {
+
   den.hosts = {
     x86_64-linux.xenia = {
       isGraphical = true;
 
-      users = {
-        inherit
-          (defaultUsers)
-          ash
-          ;
-      };
     };
 
     aarch64-linux.azelf = {
-      isGraphical = false;
+      wsl.enable = true;
 
-      users = {
-        inherit
-          (defaultUsers)
-          ash
-          ;
-      };
+        users.ash = {};
+    };
+  };
+
+
+  den.ctx.hm-host = {
+    nixos.home-manager = {
+      useGlobalPkgs = true;
+      backupFileExtension = "hm-bk";
+    };
+  };
+
+
+  den.ctx.host = {
+    nixos = {config, ...}: {
+      imports = [inputs.home-manager.nixosModules.default];
+      assertions = [
+        {
+          assertion = config ? home-manager;
+          message = "home-manager required";
+        }
+        {
+          assertion = config ? home-manager -> config.home-manager.users ? ash;
+          message = "user ash not found";
+        }
+      ];
     };
   };
 }

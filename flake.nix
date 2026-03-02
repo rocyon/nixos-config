@@ -38,7 +38,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-community/nix-index-database";
     };
-    nix-secrets.url = "path:/etc/nixos/secrets";
     nixcord.url = "github:FlameFlag/nixcord";
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
     nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz";
@@ -56,6 +55,7 @@
       flake = false;
       url = "github:BirdeeHub/lzextras";
     };
+    secrets.url = "path:/etc/nixos/secrets";
     sops-nix = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:mic92/sops-nix";

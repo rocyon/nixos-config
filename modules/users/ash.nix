@@ -52,5 +52,9 @@
           base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
         };
       };
+
+      nixos = {pkgs,...}: {
+        programs.dconf.enable = true;
+      };
     };
 }

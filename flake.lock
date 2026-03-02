@@ -474,11 +474,11 @@
         "xwayland-satellite-unstable": "xwayland-satellite-unstable"
       },
       "locked": {
-        "lastModified": 1772320432,
-        "narHash": "sha256-d6Wm7/+6iNtgdcp6mxayEBhjWisi1aj84Ob7VyEAW9Y=",
+        "lastModified": 1772433239,
+        "narHash": "sha256-5pPusMALo7ZYEoW/iHUxK7rLk3Kg8sJ8Sdf7IcfK5HA=",
         "owner": "sodiboo",
         "repo": "niri-flake",
-        "rev": "557374f9cd3649ab27b2621ae8117bec59969645",
+        "rev": "c56af55f5563f7c7043ed45ed2566a69a638448d",
         "type": "github"
       },
       "original": {
@@ -545,8 +545,8 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1772431970,
-        "narHash": "sha256-01wLJbxeGxYLnETmLGErytx7p6FOfPSt5UZQCDaBmGA=",
+        "lastModified": 1772434539,
+        "narHash": "sha256-0fleuTdzcNiBeS5FkbNTA2RjZGGwut/9KOGnOA+d0+0=",
         "path": "/etc/nixos/secrets",
         "type": "path"
       },
@@ -708,11 +708,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1772428370,
-        "narHash": "sha256-LDaIdapcrKh01cnrt8RkemkGV6qX9XLRoLjrjlgE1nA=",
+        "lastModified": 1772433482,
+        "narHash": "sha256-P2054/RvhqWuS8TlBBUYnmEaORMTQfvjK8tNyX4630Q=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "c018f8a5b09c8c8d4a9cbec82d8f84a6e5c48d81",
+        "rev": "6ac045bf8f2cc332e3667aead764fa65d7720733",
         "type": "github"
       },
       "original": {
@@ -1059,11 +1059,11 @@
     "xwayland-satellite-unstable": {
       "flake": false,
       "locked": {
-        "lastModified": 1771787042,
-        "narHash": "sha256-7bM6Y4KldhKnfopSALF8XALxcX7ehkomXH9sPl4MXp0=",
+        "lastModified": 1772429643,
+        "narHash": "sha256-M+bAeCCcjBnVk6w/4dIVvXvpJwOKnXjwi/lDbaN6Yws=",
         "owner": "Supreeeme",
         "repo": "xwayland-satellite",
-        "rev": "33c344fee50504089a447a8fef5878cf4f6215fc",
+        "rev": "10f985b84cdbcc3bbf35b3e7e43d1b2a84fa9ce2",
         "type": "github"
       },
       "original": {

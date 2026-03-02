@@ -57,7 +57,6 @@
           "/nix" = "@nix";
         });
 
-    programs.dconf.enable = true;
     system.stateVersion = "25.05";
 
     services.ddccontrol.enable = true;

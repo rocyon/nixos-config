@@ -1,4 +1,4 @@
-{
+{__findFile,...}: {
   den.aspects.ash._.graphical._.includes = {
     includes = [
       <app/ghostty>

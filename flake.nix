@@ -60,6 +60,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:mic92/sops-nix";
     };
+    stylix = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/stylix";
+    };
     wrappers = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:BirdeeHub/nix-wrapper-modules";

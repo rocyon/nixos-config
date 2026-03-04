@@ -1,7 +1,6 @@
 {__findFile, ...}: {
   den.aspects.xenia.includes = [
     (<facter> {report = "framework16";})
-    <sops>
 
     <hardware/audio>
     <hardware/systemd-boot>

@@ -33,11 +33,10 @@
       default = sharedPath;
     };
   in
-    #den.lib.parametric.withOwn
-    #<| (attrs: {includes = [attrs];})
-    #<| #=~ Configure Sops
-    (attrs: {class, aspect-chain}: builtins.trace (class aspect-chain) {includes = [attrs];})
-    <| ({
+    den.lib.parametric
+    <| (attrs: {includes = [attrs];})
+    <| #=~ Configure Sops
+    ({
       host,
       user,
       ...

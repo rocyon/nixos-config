@@ -2,6 +2,7 @@
   __findFile,
   den,
   inputs,
+  lib,
   ...
 }: {
   flake-file.inputs = {
@@ -12,12 +13,17 @@
     };
   };
 
-  den.aspects.ash = {lib, ...}:
+  den.aspects.ash = {host, ...}: let
+    inherit (inputs) secrets;
+  in
     den.lib.parametric
     <| {
       includes = lib.flatten [
-        <tools/comma>
         <app/helium>
+        <tools/comma>
+        <tools/yazi>
+
+        (<app/jujutsu> secrets.users.ash.jujutsu)
 
         # automatically include all aspects in ash._.*
         (builtins.attrValues den.aspects.ash._)
@@ -29,9 +35,7 @@
         }: let
           isGraphical = host.isGraphical or false;
         in {
-          includes = lib.optionals host.isGraphical (
-            (lib.attrValues den.aspects.ash._.graphical._)
-          );
+          includes = lib.optionals host.isGraphical (lib.attrValues den.aspects.ash._.graphical._);
 
           nixos = {config, ...}: {
             assertions = [
@@ -53,8 +57,8 @@
         };
       };
 
-      nixos = {pkgs,...}: {
-        programs.dconf.enable = true;
+      nixos = {pkgs, ...}: {
+        programs.dconf.enable = true; # Required because of config.xdg?
       };
     };
 }

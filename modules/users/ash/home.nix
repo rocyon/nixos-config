@@ -4,33 +4,28 @@
     pkgs,
     ...
   }: let
-    inherit (config.home) homeDirectory;
   in {
-    xdg = {
-      userDirs = {
-        enable = true;
-        createDirectories = true;
-
-        desktop = null;
-        publicShare = null;
-        templates = null;
-
-        documents = "${homeDirectory}/Documents";
-        download = "${homeDirectory}/Tmp";
-        music = "${homeDirectory}/Albums";
-        pictures = "${homeDirectory}/Media";
-        videos = "${homeDirectory}/Media";
-      };
-
-      mime.enable = true;
-      mimeApps.enable = true;
+    home.sessionVariables = {
+      EDITOR = "nvim";
     };
 
-    programs = {
-      ghostty.enable = true;
-      mpv.enable = true;
-      zoxide.enable = true;
-      yazi.enable = true;
+    xdg.mime.enable = true;
+    xdg.mimeApps.enable = true;
+    xdg.userDirs = let
+      inherit (config.home) homeDirectory;
+    in {
+      enable = true;
+      createDirectories = true;
+
+      desktop = null;
+      publicShare = null;
+      templates = null;
+
+      documents = "${homeDirectory}/Documents";
+      download = "${homeDirectory}/Tmp";
+      music = "${homeDirectory}/Albums";
+      pictures = "${homeDirectory}/Media";
+      videos = "${homeDirectory}/Media";
     };
 
     home.shellAliases = {

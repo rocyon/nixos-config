@@ -29,10 +29,7 @@
         (builtins.attrValues den.aspects.ash._)
 
         # Change if ash._.graphical._.* is imported based on host-specification
-        ({
-          host,
-          user,
-        }: let
+        ({host, ...}: let
           isGraphical = host.isGraphical or false;
         in {
           includes = lib.optionals host.isGraphical (lib.attrValues den.aspects.ash._.graphical._);
@@ -47,15 +44,6 @@
           };
         })
       ];
-
-      homeManager = {pkgs, ...}: {
-        # imports = [inputs.stylix.homeModules.stylix];
-        # stylix = {
-        #   enable = true;
-        #   opacity.terminal = 0.75;
-        #   base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
-        # };
-      };
 
       nixos = {pkgs, ...}: {
         programs.dconf.enable = true; # Required because of config.xdg?

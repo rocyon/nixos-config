@@ -22,8 +22,12 @@
 
       programs.nixcord = {
         enable = true;
+
+        # explicitly disable vesktop
         discord.vencord.enable = false;
-        discord.equicord.enable = true;
+        vesktop.enable = false;
+
+        discord.equicord.enable = false; # seems to fail occasionally?
 
         dorion = {
           enable = true;
@@ -31,7 +35,15 @@
         };
 
         equibop.enable = true;
-        vesktop.enable = true;
+
+        config = {
+          transparent = true;
+
+          plugins = {
+            voiceChatDoubleClick.enable = true;
+            MutualGroupDMs.enable = true;
+          };
+        };
       };
 
       # programs.nixcord = {

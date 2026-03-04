@@ -3,6 +3,7 @@
     includes = [
       <app/ghostty>
       <tools/zoxide>
+      (<tools/stylix> {base16Scheme = "catppuccin-mocha";})
     ];
 
     homeManager.programs = {

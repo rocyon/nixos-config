@@ -19,12 +19,11 @@
         enable = true;
         enableDefaultConfig = false;
 
-        addKeysToAgent = "confirm";
-
         matchBlocks = {
           "*".compression = true;
 
           "codeberg.org" = {
+            #addKeysToAgent = "confirm";
             identityFile = config.sops.secrets."private-ssh".path;
           };
         };

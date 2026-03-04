@@ -49,12 +49,12 @@
       ];
 
       homeManager = {pkgs, ...}: {
-        imports = [inputs.stylix.homeModules.stylix];
-        stylix = {
-          enable = true;
-          opacity.terminal = 0.75;
-          base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
-        };
+        # imports = [inputs.stylix.homeModules.stylix];
+        # stylix = {
+        #   enable = true;
+        #   opacity.terminal = 0.75;
+        #   base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
+        # };
       };
 
       nixos = {pkgs, ...}: {

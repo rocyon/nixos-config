@@ -2,25 +2,22 @@
 # Contains 'host-spec' settings that have symptoms
 {
   inputs,
-  lib,
   ...
 }: {
-  den.base.host = {
-    isGraphical = lib.mkDefault false;
-
-    home-manager.enable = true;
-    users.ash.classes = ["homeManager"];
+  den.schema.host = {lib,...}: {
+    options.isGraphical = lib.mkEnableOption "State whether the host has graphical responsibilities";
   };
 
   den.hosts = {
     x86_64-linux.xenia = {
       isGraphical = true;
-
+      users.ash.classes = ["homeManager"];
     };
 
     aarch64-linux.azelf = {
       wsl.enable = true;
       users.ash = {};
+      users.ash.classes = ["homeManager"];
     };
   };
 

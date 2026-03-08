@@ -4,8 +4,6 @@
   ...
 }: {
   den.aspects.ash._.ssh = {
-    includes = [(<sops> {})];
-
     homeManager = {
       config,
       pkgs,

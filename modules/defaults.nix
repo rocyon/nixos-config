@@ -1,6 +1,7 @@
 {
   den,
   inputs,
+  lib,
   ...
 }: {
   _module.args.__findFile = den.lib.__findFile;
@@ -10,7 +11,7 @@
     lib,
     ...
   }: {
-    system.stateVersion = "25.05";
+    system.stateVersion = lib.mkDefault "25.05";
 
     nixpkgs.config = {
       allowUnfree = true;
@@ -82,33 +83,37 @@
     };
   };
 
-  den.default.includes = with den; [
-    _.define-user
-    _.primary-user # causes all users to be wheel
-    _.inputs'
-    _.self'
+  # AA Batteries /ref
+  den.default.includes = with den._; [
+    define-user
+    primary-user # causes all users to be wheel, fine for now
+    inputs'
+    self'
+    hostname
 
-    (lib.take.exactly ({host}: {
-      nixos = {config, ...}: {
-        networking.hostName = host.name;
-      };
-    }))
-
-    # defaults that disable if nixos-wsl is enabled
-    {
-      nixos = {
-        lib,
-        modulesPath,
-        pkgs,
-        ...
-      }:
-        lib.optionalAttrs (true) {
+    # DOCS: default.includes is evaluated at every stage
+    #       take.exactly limits the runnable context
+    (den.lib.take.exactly ({host}:
+      lib.optionalAttrs (!host.wsl.enable) {
+        nixos = {
+          lib,
+          modulesPath,
+          pkgs,
+          ...
+        }: {
           networking.networkmanager.enable = true;
           imports = [(modulesPath + "/installer/scan/not-detected.nix")];
 
           hardware.firmware = [pkgs.linux-firmware];
           boot.kernelPackages = lib.mkDefault pkgs.linuxKernel.packages.linux_zen;
         };
-    }
+      }))
   ];
+
+  den.ctx.hm-host = {
+    nixos.home-manager = {
+      useGlobalPkgs = true;
+      backupFileExtension = "hm-bk";
+    };
+  };
 }

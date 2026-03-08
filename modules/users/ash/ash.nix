@@ -13,12 +13,12 @@
     };
   };
 
-  den.aspects.ash = {host, ...}: let
+  den.aspects.ash = {host, ...}@ctx: let
     inherit (inputs) secrets;
   in
-    den.lib.parametric
-    <| {
+    den.lib.parametric {
       includes = lib.flatten [
+        <schema>
         <app/helium>
         <tools/comma>
         <tools/yazi>
@@ -29,15 +29,13 @@
         (builtins.attrValues den.aspects.ash._)
 
         # Change if ash._.graphical._.* is imported based on host-specification
-        ({host, ...}: let
-          isGraphical = host.isGraphical or false;
-        in {
+        ({host, ...}: {
           includes = lib.optionals host.isGraphical (lib.attrValues den.aspects.ash._.graphical._);
 
           nixos = {config, ...}: {
             assertions = [
               {
-                assertion = isGraphical -> config.programs.niri.enable;
+                assertion = host.isGraphical -> config.programs.niri.enable;
                 message = "user ash requires programs.niri";
               }
             ];

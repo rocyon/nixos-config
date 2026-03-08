@@ -11,7 +11,6 @@
     <desktop/sddm>
 
     <app/steam>
-    <tools/comma>
     <tools/twingate>
   ];
 

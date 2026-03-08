@@ -11,13 +11,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    secrets = {url = "path:/etc/nixos/secrets";};
+    secrets = {
+      url = "path:/etc/nixos/secrets";
+    };
   };
 
   # import self by default
-  den.default.includes = [(<sops> {})];
+  den.default.includes = [(<tools/sops> {})];
 
-  den.aspects.sops = {
+  den.aspects.tools._.sops = {
     input ? inputs.secrets,
     sopsFolder ? "${toString input}/sops",
     sharedFile ? "shared.yaml",
@@ -33,9 +35,9 @@
       default = sharedPath;
     };
   in
-    den.lib.parametric
-    <| (attrs: {includes = [attrs];})
-    <| #=~ Configure Sops
+    # den.lib.parametric
+    # <| (attrs: {includes = [attrs];})
+    # <| #=~ Configure Sops
     ({
       host,
       user,

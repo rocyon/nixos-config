@@ -1,32 +1,22 @@
 # The overarching config settings for all hosts
 # Contains 'host-spec' settings that have symptoms
-{
-  inputs,
-  ...
-}: {
-  den.schema.host = {lib,...}: {
-    options.isGraphical = lib.mkEnableOption "State whether the host has graphical responsibilities";
-  };
-
+{inputs, ...}: {
   den.hosts = {
     x86_64-linux.xenia = {
       isGraphical = true;
       users.ash.classes = ["homeManager"];
+      users.ash.colorscheme = "catppuccin-mocha";
     };
 
     aarch64-linux.azelf = {
       wsl.enable = true;
-      users.ash = {};
-      users.ash.classes = ["homeManager"];
+
+      users.ash = {
+        classes = ["homeManager"];
+      };
     };
   };
 
-  den.ctx.hm-host = {
-    nixos.home-manager = {
-      useGlobalPkgs = true;
-      backupFileExtension = "hm-bk";
-    };
-  };
 
   den.ctx.host = {
     nixos = {config, ...}: {

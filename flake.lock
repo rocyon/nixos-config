@@ -877,8 +877,8 @@
         "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1772860079,
-        "narHash": "sha256-T2YbC/4kWa6Bya2XsGo5P+arFYqP6EtJAGTj4naIwr8=",
+        "lastModified": 1772864610,
+        "narHash": "sha256-sVDgEL+6BB6Iof4MxoVkkg0Te2Um0WkIfZ32hDx53UQ=",
         "path": "/etc/nixos/secrets",
         "type": "path"
       },

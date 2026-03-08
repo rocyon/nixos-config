@@ -1,4 +1,4 @@
-{__findFile,...}: {
+{__findFile, ...}: {
   den.aspects.ash._.graphical._.includes = {
     includes = [
       <app/ghostty>
@@ -6,10 +6,16 @@
       (<tools/stylix> {base16Scheme = "catppuccin-mocha";})
     ];
 
-    homeManager.programs = {
-      ghostty.enable = true;
-      yazi.enable = true;
-      mpv.enable = true;
+    homeManager = {pkgs, ...}: {
+      home.packages = with pkgs; [
+        obsidian
+      ];
+
+      programs = {
+        ghostty.enable = true;
+        yazi.enable = true;
+        mpv.enable = true;
+      };
     };
   };
 }

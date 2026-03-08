@@ -48,5 +48,10 @@
       nixos = {pkgs, ...}: {
         programs.dconf.enable = true; # Required because of config.xdg?
       };
+
+      homeManager = {
+        home.shell.enableBashIntegration = true;
+        programs.bash.enable = true;
+      };
     };
 }

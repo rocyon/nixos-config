@@ -21,13 +21,12 @@
         enable = true;
         enableDefaultConfig = false;
 
-        matchBlocks = {
-          "*".compression = true;
-          "*".identityFile = config.sops.secrets."key-opal".path;
-
-          "minior".hostname = secrets.networking.publicIp.minior;
-          "xenia" = {};
-        };
+        matchBlocks =
+          secrets.users.ash.ssh
+          // {
+            "*".compression = true;
+            "*".identityFile = config.sops.secrets."key-opal".path;
+          };
       };
     };
   };

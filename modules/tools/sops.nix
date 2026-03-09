@@ -76,8 +76,10 @@
             };
           };
 
-          users.users.${user.name}.hashedPasswordFile =
-            config.sops.secrets."passwords/${user.name}".path;
+          users.users.${user.name} = {
+            hashedPasswordFile = config.sops.secrets."passwords/${user.name}".path;
+            openssh.authorizedKeys.keys = inputs.secrets.networking.public-keys-by-user.${user.name};
+          };
         };
       };
 

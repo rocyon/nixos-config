@@ -1,7 +1,7 @@
 {
   den.aspects.tools._.tailscale = {
     nixos = {
-      programs.tailscale = {
+      services.tailscale = {
         enable = true;
         
         useRoutingFeatures = "both";

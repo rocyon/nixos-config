@@ -13,39 +13,39 @@
     };
   };
 
-  den.aspects.ash = {host, ...}@ctx: let
+  den.aspects.ash = {...}:let
     inherit (inputs) secrets;
+    inherit (builtins) attrValues;
   in
     den.lib.parametric {
-      includes = lib.flatten [
-        <schema>
-        <app/helium>
-        <tools/comma>
-        <tools/yazi>
+      includes =
+        lib.flatten [
+          <schema>
+          <app/helium>
+          <tools/comma>
+          <tools/yazi>
 
-        (<app/jujutsu> secrets.users.ash.jujutsu)
+          (<app/jujutsu> secrets.users.ash.jujutsu)
 
-        # automatically include all aspects in ash._.*
-        (builtins.attrValues den.aspects.ash._)
-
-        # Change if ash._.graphical._.* is imported based on host-specification
-        ({host, ...}: {
-          includes = lib.optionals host.isGraphical (lib.attrValues den.aspects.ash._.graphical._);
-
-          nixos = {config, ...}: {
-            assertions = [
-              {
-                assertion = host.isGraphical -> config.programs.niri.enable;
-                message = "user ash requires programs.niri";
-              }
-            ];
-          };
-        })
-      ];
-
-      nixos = {pkgs, ...}: {
-        programs.dconf.enable = true; # Required because of config.xdg?
-      };
+          # automatically include all provides
+          (attrValues den.aspects.ash._)
+        ]
+        ++ [
+          ({host, ...}: {
+            nixos = {
+              config,
+              ...
+            }: {
+              programs.dconf.enable = true; # Required because of config.xdg?
+              assertions = [
+                {
+                  assertion = host.isGraphical -> config.programs.niri.enable;
+                  message = "user ash requires programs.niri";
+                }
+              ];
+            };
+          })
+        ];
 
       homeManager = {
         home.shell.enableBashIntegration = true;

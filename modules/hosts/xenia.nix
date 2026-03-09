@@ -9,9 +9,12 @@
 
     #<desktop/niri>
     <desktop/sddm>
+    <desktop/aero7>
 
     <app/steam>
     <tools/twingate>
+    <tools/tailscale>
+    <tools/sunshine>
   ];
 
   den.aspects.xenia.nixos = {
@@ -20,19 +23,7 @@
     lib,
     ...
   }: let
-    mkBtrfs = {
-      device,
-      defaultOptions ? [],
-      optionsBySubvol ? [],
-    }:
-      lib.mapAttrs (_: subvol: {
-        inherit device;
-        fsType = "btrfs";
-        options = lib.concatLists [
-          (optionsBySubvol.${subvol} or defaultOptions)
-          (lib.optionals (null != subvol) ["subvol=${subvol}"])
-        ];
-      });
+    mkBtrfs = import ./_mkBtrfs.nix {inherit lib;};
   in {
     fileSystems =
       {
@@ -60,7 +51,7 @@
     services.ddccontrol.enable = true;
     environment.systemPackages = [pkgs.ddccontrol-db];
 
-    boot.extraModulePackages = with config.boot.kernelPackages; [ ddcci-driver ];
+    boot.extraModulePackages = with config.boot.kernelPackages; [ddcci-driver];
 
     assertions = [
       {

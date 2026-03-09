@@ -5,6 +5,10 @@
   outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
 
   inputs = {
+    aerothemeplasma-nix = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nyakase/aerothemeplasma-nix";
+    };
     den.url = "github:vic/den";
     dms = {
       inputs.nixpkgs.follows = "nixpkgs";

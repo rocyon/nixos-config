@@ -38,6 +38,7 @@
 
     home.packages = with pkgs; [
       nautilus
+      prismlauncher
     ];
   };
 }

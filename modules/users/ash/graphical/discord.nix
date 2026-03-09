@@ -89,7 +89,7 @@
             implicitRelationships.enable = true;
             ircColors.applyColorOnlyToUsersWithoutColor = true;
             ircColors.enable = true;
-            keyboardNavigation.enable = true;
+            #keyboardNavigation.enable = true;
             messageBurst.enable = true; # Interesting
             voiceChatDoubleClick.enable = true;
             # messageLogger.collapseDeleted = true;

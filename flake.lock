@@ -1,5 +1,26 @@
 {
   "nodes": {
+    "aerothemeplasma-nix": {
+      "inputs": {
+        "flake-parts": "flake-parts",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1772518299,
+        "narHash": "sha256-2beZMz0uXELRqQ+Ux0hr4mJUYyd4nOC+rB1MTH8T28E=",
+        "owner": "nyakase",
+        "repo": "aerothemeplasma-nix",
+        "rev": "eca592808a759cc658c7c2675412a5e39be1b452",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nyakase",
+        "repo": "aerothemeplasma-nix",
+        "type": "github"
+      }
+    },
     "base16": {
       "inputs": {
         "fromYaml": "fromYaml"
@@ -272,6 +293,24 @@
     },
     "flake-parts": {
       "inputs": {
+        "nixpkgs-lib": "nixpkgs-lib"
+      },
+      "locked": {
+        "lastModified": 1772408722,
+        "narHash": "sha256-rHuJtdcOjK7rAHpHphUb1iCvgkU3GpfvicLMwwnfMT0=",
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "rev": "f20dc5d9b8027381c474144ecabc9034d6a839a3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "type": "github"
+      }
+    },
+    "flake-parts_2": {
+      "inputs": {
         "nixpkgs-lib": [
           "nixpkgs-lib"
         ]
@@ -290,9 +329,9 @@
         "type": "github"
       }
     },
-    "flake-parts_2": {
+    "flake-parts_3": {
       "inputs": {
-        "nixpkgs-lib": "nixpkgs-lib"
+        "nixpkgs-lib": "nixpkgs-lib_2"
       },
       "locked": {
         "lastModified": 1772408722,
@@ -308,7 +347,7 @@
         "type": "github"
       }
     },
-    "flake-parts_3": {
+    "flake-parts_4": {
       "inputs": {
         "nixpkgs-lib": [
           "nur",
@@ -329,7 +368,7 @@
         "type": "github"
       }
     },
-    "flake-parts_4": {
+    "flake-parts_5": {
       "inputs": {
         "nixpkgs-lib": [
           "nvf",
@@ -350,7 +389,7 @@
         "type": "github"
       }
     },
-    "flake-parts_5": {
+    "flake-parts_6": {
       "inputs": {
         "nixpkgs-lib": [
           "stylix",
@@ -559,7 +598,7 @@
     "nixcord": {
       "inputs": {
         "flake-compat": "flake-compat",
-        "flake-parts": "flake-parts_2",
+        "flake-parts": "flake-parts_3",
         "nixpkgs": "nixpkgs"
       },
       "locked": {
@@ -612,6 +651,21 @@
       }
     },
     "nixpkgs-lib": {
+      "locked": {
+        "lastModified": 1772328832,
+        "narHash": "sha256-e+/T/pmEkLP6BHhYjx6GmwP5ivonQQn0bJdH9YrRB+Q=",
+        "owner": "nix-community",
+        "repo": "nixpkgs.lib",
+        "rev": "c185c7a5e5dd8f9add5b2f8ebeff00888b070742",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nixpkgs.lib",
+        "type": "github"
+      }
+    },
+    "nixpkgs-lib_2": {
       "locked": {
         "lastModified": 1772328832,
         "narHash": "sha256-e+/T/pmEkLP6BHhYjx6GmwP5ivonQQn0bJdH9YrRB+Q=",
@@ -719,7 +773,7 @@
     },
     "nur": {
       "inputs": {
-        "flake-parts": "flake-parts_3",
+        "flake-parts": "flake-parts_4",
         "nixpkgs": [
           "nixpkgs"
         ]
@@ -766,7 +820,7 @@
     "nvf": {
       "inputs": {
         "flake-compat": "flake-compat_3",
-        "flake-parts": "flake-parts_4",
+        "flake-parts": "flake-parts_5",
         "mnw": "mnw",
         "ndg": "ndg",
         "nixpkgs": "nixpkgs_4",
@@ -842,6 +896,7 @@
     },
     "root": {
       "inputs": {
+        "aerothemeplasma-nix": "aerothemeplasma-nix",
         "den": "den",
         "dms": "dms",
         "dms-plugin-registry": "dms-plugin-registry",
@@ -849,7 +904,7 @@
         "firefox-addons": "firefox-addons",
         "flake-aspects": "flake-aspects",
         "flake-file": "flake-file",
-        "flake-parts": "flake-parts",
+        "flake-parts": "flake-parts_2",
         "home-manager": "home-manager",
         "import-tree": "import-tree",
         "niri": "niri",
@@ -877,8 +932,8 @@
         "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1772864610,
-        "narHash": "sha256-sVDgEL+6BB6Iof4MxoVkkg0Te2Um0WkIfZ32hDx53UQ=",
+        "lastModified": 1773124080,
+        "narHash": "sha256-fIh0r6e9SfQUtKjMyAdEU4qwTdBQzy+XkvqBhrIMAYY=",
         "path": "/etc/nixos/secrets",
         "type": "path"
       },
@@ -914,7 +969,7 @@
         "base16-helix": "base16-helix",
         "base16-vim": "base16-vim",
         "firefox-gnome-theme": "firefox-gnome-theme",
-        "flake-parts": "flake-parts_5",
+        "flake-parts": "flake-parts_6",
         "gnome-shell": "gnome-shell",
         "nixpkgs": [
           "nixpkgs"

@@ -8,8 +8,10 @@
   scheme = pkgs: scheme: "${pkgs.base16-schemes}/share/themes/${scheme}.yaml";
 in {
   flake-file.inputs = {
-    url = "github:nix-community/stylix";
-    inputs.nixpkgs.follows = "nixpkgs";
+    stylix = {
+      url = "github:nix-community/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   den.schema.conf = {

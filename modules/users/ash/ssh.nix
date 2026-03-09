@@ -1,6 +1,7 @@
 {
   __findFile,
   inputs,
+  secrets,
   ...
 }: {
   den.aspects.ash._.ssh = {
@@ -11,7 +12,10 @@
     }: {
       home.packages = [pkgs.fastfetch];
 
-      sops.secrets."private-ssh" = {};
+      sops.secrets = {
+        "private-ssh" = {};
+        "key-opal" = {};
+      };
 
       programs.ssh = {
         enable = true;
@@ -19,11 +23,10 @@
 
         matchBlocks = {
           "*".compression = true;
+          "*".identityFile = config.sops.secrets."key-opal".path;
 
-          "codeberg.org" = {
-            #addKeysToAgent = "confirm";
-            identityFile = config.sops.secrets."private-ssh".path;
-          };
+          "minior".hostname = secrets.networking.publicIp.minior;
+          "xenia" = {};
         };
       };
     };

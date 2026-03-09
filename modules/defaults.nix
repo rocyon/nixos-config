@@ -4,14 +4,20 @@
   lib,
   ...
 }: {
-  _module.args.__findFile = den.lib.__findFile;
+  _module.args = {
+    inherit (den.lib) __findFile parametric;
+    inherit (inputs) secrets;
+  };
 
   den.default.nixos = {
     pkgs,
     lib,
     ...
   }: {
-    system.stateVersion = lib.mkDefault "25.05";
+    services.openssh.enable = true;
+    system = {
+      stateVersion = lib.mkDefault "25.05";
+    };
 
     nixpkgs.config = {
       allowUnfree = true;
@@ -44,6 +50,7 @@
         "flakes"
         "pipe-operators"
       ];
+
       warn-dirty = false;
       trusted-users = ["@wheel"];
       fallback = true;
@@ -70,6 +77,8 @@
     imports = [
       inputs.nur.modules.nixos.default
     ];
+
+    security.pam.sshAgentAuth.enable = true;
   };
 
   den.default.darwin = {};

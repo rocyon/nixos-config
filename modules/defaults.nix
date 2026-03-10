@@ -1,31 +1,26 @@
 {
+  __findFile,
   den,
   inputs,
   lib,
-  secrets,
   ...
-}: {
-  den.default.nixos = {
-    pkgs,
-    lib,
-    ...
-  }: {
+}: let
+  stateVersion = "25.05";
+in {
+  den.default.nixos = {pkgs, ...}: {
     services.openssh.enable = true;
+
     system = {
-      stateVersion = lib.mkDefault "25.05";
+      inherit stateVersion;
     };
 
-    nixpkgs.config = {
-      allowUnfree = true;
-    };
+    nixpkgs.config.allowUnfree = true;
 
     environment = {
       enableAllTerminfo = true;
       localBinInPath = true;
       systemPackages = with pkgs; [openssh git jujutsu];
     };
-
-    hardware.enableRedistributableFirmware = true;
 
     security.sudo.extraConfig = ''
       Defaults lecture = never
@@ -79,13 +74,13 @@
 
   den.default.darwin = {};
 
-  den.default.homeManager = {lib, ...}: {
-    programs.home-manager.enable = true;
-
+  den.default.homeManager = {
     home = {
-      stateVersion = lib.mkDefault "25.05";
+      inherit stateVersion;
       preferXdgDirectories = true;
     };
+
+    programs.home-manager.enable = true;
   };
 
   # AA Batteries /ref
@@ -96,23 +91,9 @@
     self'
     hostname
 
-    # DOCS: default.includes is evaluated at every stage
-    #       take.exactly limits the runnable context
-    (den.lib.take.exactly ({host}:
-      lib.optionalAttrs (!host.wsl.enable) {
-        nixos = {
-          lib,
-          modulesPath,
-          pkgs,
-          ...
-        }: {
-          networking.networkmanager.enable = true;
-          imports = [(modulesPath + "/installer/scan/not-detected.nix")];
-
-          hardware.firmware = [pkgs.linux-firmware];
-          boot.kernelPackages = lib.mkDefault pkgs.linuxKernel.packages.linux_zen;
-        };
-      }))
+    <tools/comma>
+    <tools/yazi>
+    <tools/zoxide>
   ];
 
   den.ctx.hm-host = {

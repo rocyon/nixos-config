@@ -2,12 +2,6 @@
 # Contains 'host-spec' settings that have symptoms
 {inputs, ...}: {
   den.hosts = {
-    x86_64-linux.xenia = {
-      isGraphical = true;
-      users.ash.classes = ["homeManager"];
-      users.ash.colorscheme = "catppuccin-mocha";
-    };
-
     aarch64-linux.azelf = {
       wsl.enable = true;
 
@@ -16,7 +10,6 @@
       };
     };
   };
-
 
   den.ctx.host = {
     nixos = {config, ...}: {

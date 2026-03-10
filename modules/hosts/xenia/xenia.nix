@@ -1,6 +1,17 @@
 {__findFile, ...}: {
+  den.hosts.x86_64-linux.xenia = {
+    isGraphical = true;
+
+    users = {
+      ash = {
+        classes = ["homeManager"];
+        colorscheme = "catppuccin-mocha";
+      };
+    };
+  };
+
   den.aspects.xenia.includes = [
-    (<facter> {report = "framework16";})
+    (<facter> "framework16")
 
     <hardware/audio>
     <hardware/systemd-boot>

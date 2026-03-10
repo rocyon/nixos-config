@@ -1,23 +1,31 @@
 {
   den,
   lib,
+  parametric,
   ...
 }: let
   inherit (lib) types mkOption;
 in {
-  den.aspects.schema = den.lib.parametric {
-    includes = builtins.attrValues den.aspects.schema._;
+  den.aspects.schema = parametric {
+    includes = lib.attrValues den.aspects.schema._;
   };
 
-  den.schema.host.options = {
+  den.ctx.user._.inheritHost = {host, ...}:
+    lib.mkDefault {
+      inherit (host)
+        isGraphical
+        isSlim
+        wallpaper
+        ;
+    };
+
+  den.schema.conf.options = {
     isGraphical = lib.mkOption {
       type = types.bool;
       default = false;
 
       description = ''
         Whether the host has graphical responsibilities
-        Eg. SSH/TTY Only client   : False
-            Graphical Environment : True
       '';
     };
 
@@ -26,8 +34,7 @@ in {
       default = false;
 
       description = ''
-        Whether the host has limited hardware, and actions taken accordingly
-        Eg. Limited RAM, Disk, ect.
+        Whether the host has limited hardware resources, and actions taken accordingly
       '';
     };
 
@@ -35,23 +42,8 @@ in {
       type = with types; nullOr path;
       default = null;
       description = ''
-        The wallpaper to be used where applicable
-        Eg. Login screen
+        The wallpaper to be used
       '';
     };
   };
-
-  den.schema.user.options = {
-    wallpaper = mkOption {
-      type = with types; nullOr path;
-      default = null;
-
-      description = ''
-        The wallpaper used on the user's desktop
-        Not absolute, could be overridden at runtime by another application
-      '';
-    };
-  };
-
-  den.schema.home.options = {};
 }

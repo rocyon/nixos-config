@@ -3,6 +3,7 @@
   den,
   inputs,
   lib,
+  parametric,
   ...
 }: {
   flake-file.inputs = {
@@ -13,40 +14,36 @@
     };
   };
 
-  den.aspects.ash = {...}:let
+  den.aspects.ash = {...}: let
     inherit (inputs) secrets;
     inherit (builtins) attrValues;
   in
     den.lib.parametric {
-      includes =
-        lib.flatten [
-          <schema>
-          <app/helium>
-          <app/zen>
-          <tools/comma>
-          <tools/yazi>
+      includes = lib.flatten [
+        <schema>
+        <app/helium>
+        <app/zen>
+        <tools/comma>
+        <tools/yazi>
 
-          (<app/jujutsu> secrets.users.ash.jujutsu)
+        (<app/jujutsu> secrets.users.ash.jujutsu)
 
-          # automatically include all provides
-          (attrValues den.aspects.ash._)
-        ]
-        ++ [
-          ({host, ...}: {
-            nixos = {
-              config,
-              ...
-            }: {
-              programs.dconf.enable = true; # Required because of config.xdg?
-              assertions = [
-                {
-                  assertion = host.isGraphical -> config.programs.niri.enable;
-                  message = "user ash requires programs.niri";
-                }
-              ];
-            };
-          })
-        ];
+        # automatically include all provides
+        (attrValues den.aspects.ash._)
+
+        (den._.user-shell "fish")
+        ({host, ...}: {
+          nixos = {config, ...}: {
+            programs.dconf.enable = true; # Required because of config.xdg?
+            assertions = [
+              {
+                assertion = host.isGraphical -> config.programs.niri.enable;
+                message = "user ash requires programs.niri";
+              }
+            ];
+          };
+        })
+      ];
 
       homeManager = {
         home.shell.enableBashIntegration = true;

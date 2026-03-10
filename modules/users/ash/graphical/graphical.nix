@@ -1,15 +1,13 @@
 {
   den,
   lib,
-  parametric,
   ...
 }: {
-  den.aspects.ash._.graphical = parametric {
+  den.aspects.ash._.graphical = {
     includes = [
       ({host, ...}: {
         includes =
-          builtins.trace host.isGraphical
-          lib.optionalAttrs
+          lib.optionals
           host.isGraphical
           <| lib.attrValues den.aspects.ash._.graphical._;
       })

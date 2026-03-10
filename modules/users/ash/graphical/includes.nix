@@ -2,6 +2,8 @@
   den.aspects.ash._.graphical._.includes = {
     includes = [
       <app/ghostty>
+      <app/helium>
+      <app/zen>
     ];
 
     homeManager = {pkgs, ...}: {

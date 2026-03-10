@@ -1,6 +1,5 @@
 {
   __findFile,
-  den,
   inputs,
   lib,
   ...

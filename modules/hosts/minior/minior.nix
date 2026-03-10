@@ -13,7 +13,7 @@
 
   den.aspects.minior = {
     includes = [
-      (<facter> {report = "pyroVPS";})
+      (<facter> "pyroVPS")
       <hardware/systemd-boot>
     ];
 

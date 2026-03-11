@@ -2,6 +2,7 @@
   den,
   inputs,
   lib,
+  secrets,
   ...
 }: {
   _module.args = {
@@ -9,6 +10,7 @@
     inherit (inputs) secrets;
   };
 
+}: {
   den.default.nixos = {
     pkgs,
     lib,

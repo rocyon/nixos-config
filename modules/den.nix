@@ -1,23 +1,14 @@
-{inputs, ...}: {
-  flake-file.inputs = {
-    #=- Den's core inputs
-    den.url = "github:vic/den";
-    flake-file.url = "github:vic/flake-file";
-
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    #=- Nix User Repository(s)
-    nur = {
-      url = "github:nix-community/NUR";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+{
+  inputs,
+  lib,
+  den,
+  ...
+}: {
+  _module.args = {
+    inherit (den.lib) __findFile parametric;
+    inherit (inputs) secrets;
   };
-
-  imports = [
-    (inputs.flake-file.flakeModules.dendritic or {})
-    (inputs.den.flakeModules.dendritic or {})
+  imports = lib.optionals (inputs ? den) [
+    (inputs.den.namespace "rocyon" true)
   ];
 }

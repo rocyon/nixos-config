@@ -932,16 +932,17 @@
         "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1773124080,
-        "narHash": "sha256-fIh0r6e9SfQUtKjMyAdEU4qwTdBQzy+XkvqBhrIMAYY=",
-        "lastModified": 1773193324,
-        "narHash": "sha256-6O3JA+NdT8N3Sjz64TNJKCvPOimAv1iBjwlBsAp8oro=",
-        "path": "/etc/nixos/secrets",
-        "type": "path"
+        "lastModified": 1773241917,
+        "narHash": "sha256-5AZ5c5elwaon7Wake55UZ4IagK27GtIb8GIECGIYGeI=",
+        "ref": "refs/heads/main",
+        "rev": "c2c37d083568354249d298752b07cf82a05bd97a",
+        "revCount": 5,
+        "type": "git",
+        "url": "ssh://git@codeberg.org/rocyon/nixos-secrets.git"
       },
       "original": {
-        "path": "/etc/nixos/secrets",
-        "type": "path"
+        "type": "git",
+        "url": "ssh://git@codeberg.org/rocyon/nixos-secrets.git"
       }
     },
     "sops-nix": {

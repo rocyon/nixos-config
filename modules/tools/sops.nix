@@ -12,7 +12,7 @@
     };
 
     secrets = {
-      url = "path:/etc/nixos/secrets";
+      url = "git+ssh://git@codeberg.org/rocyon/nixos-secrets.git";
     };
   };
 

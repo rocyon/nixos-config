@@ -59,7 +59,7 @@
       flake = false;
       url = "github:BirdeeHub/lzextras";
     };
-    secrets.url = "path:/etc/nixos/secrets";
+    secrets.url = "git+ssh://git@codeberg.org/rocyon/nixos-secrets.git";
     sops-nix = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:mic92/sops-nix";

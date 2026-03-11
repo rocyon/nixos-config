@@ -14,6 +14,7 @@
     homeManager = {
       osConfig,
       config,
+      pkgs,
       ...
     }: {
       imports = [inputs.nixcord.homeModules.nixcord];
@@ -22,6 +23,8 @@
 
       programs.nixcord = {
         enable = true;
+
+        # package = pkgs.discord-ptb;
 
         # explicitly disable vesktop
         discord.vencord.enable = false;

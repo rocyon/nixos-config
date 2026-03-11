@@ -22,6 +22,7 @@
         lib.flatten [
           <schema>
           <app/helium>
+          <app/zen>
           <tools/comma>
           <tools/yazi>
 

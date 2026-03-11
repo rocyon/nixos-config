@@ -5,12 +5,6 @@
   secrets,
   ...
 }: {
-  _module.args = {
-    inherit (den.lib) __findFile parametric;
-    inherit (inputs) secrets;
-  };
-
-}: {
   den.default.nixos = {
     pkgs,
     lib,
